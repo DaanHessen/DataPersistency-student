@@ -95,7 +95,7 @@
 -- DROP VIEW IF EXISTS s4_7; CREATE OR REPLACE VIEW s4_7 AS                                                     -- [TEST]
 
     CREATE OR REPLACE VIEW s4_7 AS
-        SELECT COUNT(mnr) AS aantal_medewerkers, AVG(comm) AS commissie_medewerkers, AVG(comm) AS commissie_verkopers FROM medewerkers WHERE functie = 'VERKOPER';
+        SELECT COUNT(mnr) AS aantal_medewerkers, AVG(comm) AS commissie_medewerkers, AVG(CASE WHEN functie = 'VERKOPER' THEN comm END) AS commissie_verkopers FROM medewerkers;
 
 -- -------------------------[ HU TESTRAAMWERK ]--------------------------------
 -- Met onderstaande query kun je je code testen. Zie bovenaan dit bestand
