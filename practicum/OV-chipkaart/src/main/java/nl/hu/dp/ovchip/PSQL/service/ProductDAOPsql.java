@@ -176,7 +176,7 @@ public class ProductDAOPsql implements ProductDAO {
     }
 
     private long generateNewId(String table, String column) throws SQLException {
-        String sql = "SELECT MAX(" + column + ") + 1 AS new_id FROM " + table;
+        String sql = "SELECT MAX(" + column + ") FROM " + table;
         try (Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sql)) {
             if (rs.next()) {
