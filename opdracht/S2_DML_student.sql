@@ -3,8 +3,8 @@
 -- Opdracht S2: Data Manipulation Language
 --
 -- (c) 2020 Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
--- André Donk (andre.donk@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
+-- André Donk (andre.donk@hu.main.nl)
 --
 --
 -- Opdracht: schrijf SQL-queries om onderstaande resultaten op te vragen,
@@ -32,9 +32,7 @@
 -- Geef code en omschrijving van alle cursussen die precies vier dagen duren.
 -- DROP VIEW IF EXISTS s2_1; CREATE OR REPLACE VIEW s2_1 AS                                                     -- [TEST]
 
-    CREATE OR REPLACE VIEW s2_1 AS
     SELECT code, omschrijving FROM cursussen WHERE lengte = 4;
-
 
 -- S2.2. Medewerkersoverzicht
 --
@@ -42,8 +40,7 @@
 -- en per functie op leeftijd (van jong naar oud).
 -- DROP VIEW IF EXISTS s2_2; CREATE OR REPLACE VIEW s2_2 AS                                                     -- [TEST]
 
-    CREATE OR REPLACE VIEW s2_2 AS
-    SELECT * FROM medewerkers ORDER BY functie, gbdatum ASC;
+    SELECT * FROM medewerkers ORDER BY functie, gbdatum DESC;
 
 -- S2.3. Door het land
 --
@@ -51,18 +48,17 @@
 -- code en begindatum.
 -- DROP VIEW IF EXISTS s2_3; CREATE OR REPLACE VIEW s2_3 AS                                             -- [TEST]
 
-    CREATE OR REPLACE VIEW s2_3 AS
     SELECT c.code, u.begindatum
-    FROM cursussen c JOIN uitvoeringen u = u.cursus
-    WHERE u.locatie = 'Utrecht' OR u.locatie = 'Maastricht';
+    FROM cursussen c
+    JOIN uitvoeringen u ON c.code = u.cursus
+    WHERE LOWER(u.locatie) = 'utrecht' OR LOWER(u.locatie) = 'maastricht';
 
 -- S2.4. Namen
 --
 -- Geef de naam en voorletters van alle medewerkers, behalve van R. Jansen.
 -- DROP VIEW IF EXISTS s2_4; CREATE OR REPLACE VIEW s2_4 AS                                                     -- [TEST]
 
-    CREATE OR REPLACE VIEW s2_4 AS
-    SELECT naam, voorl FROM medewerkers WHERE naam != 'JANSEN' AND voorl != 'R';
+    SELECT naam, voorl FROM medewerkers WHERE NOT (naam = 'JANSEN' AND voorl = 'R');
 
 -- S2.5. Nieuwe SQL-cursus
 --
@@ -70,36 +66,52 @@
 -- komende 2 maart. De cursus wordt gegeven in Leerdam door Nick Smit.
 -- Voeg deze gegevens toe.
 
-INSERT INTO uitvoeringen (cursus, locatie, begindatum, docent) VALUES ('S02', 'Leerdam', '02-03-2024', (SELECT MNR FROM medewerkers WHERE naam = 'SMIT' AND voorl = 'N'));
-ON CONFLICT DO NOTHING;                                                                                         -- [TEST]
+    INSERT INTO uitvoeringen (cursus, locatie, begindatum, docent)
+    VALUES (
+            'S02',
+            'LEERDAM',
+            '2024-03-02',
+            (SELECT mnr FROM medewerkers WHERE naam = 'SMIT' AND voorl = 'N')
+           )
+    ON CONFLICT DO NOTHING;                                                                                         -- [TEST]
 
 
 -- S2.6. Stagiairs
 --
 -- Neem één van je collega-studenten aan als stagiair ('STAGIAIR') en
 -- voer zijn of haar gegevens in. Kies een personeelnummer boven de 8000.
+
+-- S2.6. Stagiairs
+
 INSERT INTO medewerkers (mnr, naam, voorl, functie, chef, gbdatum, maandsal, comm, afd)
 VALUES (
-        8001,
-        'HESSEN',
-        'D',
-        'STAGIAIR',
-        (SELECT mnr FROM medewerkers WHERE functie = 'MANAGER' AND afd = '30' LIMIT 1),
-        '09-04-2002',
-        '10000',
-        'NULL',
-        (SELECT anr FROM afdelingen WHERE naam = 'VERKOOP')
-                                                            );
-ON CONFLICT DO NOTHING;                                                                                         -- [TEST]
+           8001,
+           'HESSEN',
+           'D',
+           'STAGIAIR',
+           (SELECT mnr FROM medewerkers WHERE functie = 'MANAGER' AND afd = 30 LIMIT 1),
+           '2002-04-09',
+           800,
+           NULL,
+           (SELECT anr FROM afdelingen WHERE naam = 'VERKOOP')
+       )
+ON CONFLICT DO NOTHING;
+
 
 
 -- S2.7. Nieuwe schaal
 --
 -- We breiden het salarissysteem uit naar zes schalen. Voer een extra schaal in voor mensen die
 -- tussen de 3001 en 4000 euro verdienen. Zij krijgen een toelage van 500 euro.
-INSERT INTO schalen (snr, ondergrens, bovengrens, toelage) VALUES (6, 3001, 4000, 500)
-ON CONFLICT DO NOTHING;
 
+    INSERT INTO schalen (snr, ondergrens, bovengrens, toelage)
+    VALUES (
+            6,
+            3001,
+            4000,
+            500
+           )
+    ON CONFLICT DO NOTHING;
 
 -- S2.8. Nieuwe cursus
 --
@@ -107,19 +119,32 @@ ON CONFLICT DO NOTHING;
 -- Voeg deze cursus met code 'D&P' toe, maak twee uitvoeringen in Leerdam en schrijf drie
 -- mensen in.
 
-INSERT INTO cursussen (code, omschrijving, type, lengte) VALUES ('D&P', 'Data & Persistency', 'CUR', 6)
-ON CONFLICT DO NOTHING;
-INSERT INTO uitvoeringen (cursus, begindatum, locatie) VALUES 'D&P', '25-09-2024', 'Leerdam')
-ON CONFLICT DO NOTHING;
-INSERT INTO uitvoeringen (cursus, begindatum, locatie) VALUES 'D&P', '25-09-2024', 'Leerdam')
-ON CONFLICT DO NOTHING;
-INSERT INTO inschrijvingen (cursist, cursus, begindatum) VALUES ('', 'D&P', '25-09-2024')
-ON CONFLICT DO NOTHING;
-INSERT INTO inschrijvingen (cursist, cursus, begindatum) VALUES ('', 'D&P', '25-09-2024')
-ON CONFLICT DO NOTHING;
-INSERT INTO inschrijvingen (cursist, cursus, begindatum) VALUES ('', 'D&P', '25-09-2024')
+    -- voegt nieuwe cursus 'Data & Persistency' toe
+    INSERT INTO cursussen (code, omschrijving, type, lengte)
+    VALUES ('D&P', 'Data & Persistency', 'ALG', 6)
+    ON CONFLICT DO NOTHING;
+
+    -- voegt twee uitvoeringen van de cursus 'Data & Persistency' toe
+    INSERT INTO uitvoeringen (cursus, locatie, begindatum)
+    VALUES ('D&P', 'LEERDAM', '2024-09-25')
+    ON CONFLICT DO NOTHING;
+
+    INSERT INTO uitvoeringen (cursus, locatie, begindatum)
+    VALUES ('D&P', 'LEERDAM', '2024-10-15')
+    ON CONFLICT DO NOTHING;
+
+    -- schrijft drie mensen in voor de cursus 'Data & Persistency'
+INSERT INTO inschrijvingen (cursus, begindatum, cursist)
+VALUES ('D&P', '2024-09-25', 7369)  -- 'SMIT', 'N'
 ON CONFLICT DO NOTHING;
 
+INSERT INTO inschrijvingen (cursus, begindatum, cursist)
+VALUES ('D&P', '2024-09-25', 7521)  -- 'DE WAARD', 'TF'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO inschrijvingen (cursus, begindatum, cursist)
+VALUES ('D&P', '2024-09-25', 7566)  -- 'JANSEN', 'JM'
+ON CONFLICT DO NOTHING;
 
 -- S2.9. Salarisverhoging
 --
@@ -127,8 +152,13 @@ ON CONFLICT DO NOTHING;
 -- van 5.5%, behalve de manager van de afdeling, deze krijgt namelijk meer: 7%.
 -- Voer deze verhogingen door.
 
-    UPDATE medewerkers SET maandsal = maandsal * 1.55 where afd = 30 AND functie != 'MANAGER';
+    UPDATE medewerkers
+    SET maandsal = maandsal * 1.055
+    WHERE afd = (SELECT anr FROM afdelingen where naam = 'VERKOOP') AND functie != 'MANAGER';
 
+    UPDATE medewerkers
+    SET maandsal = maandsal * 1.07
+    WHERE afd = (SELECT anr FROM afdelingen where naam = 'VERKOOP') AND functie = 'MANAGER';
 
 -- S2.10. Concurrent
 --
@@ -145,19 +175,40 @@ ON CONFLICT DO NOTHING;
 --  niet verwijderd kunnen worden als deze nog ergens voorkomt in een andere tabel
 
 
-
 -- S2.11. Nieuwe afdeling
 --
 -- Je wordt hoofd van de nieuwe afdeling 'FINANCIEN' te Leerdam,
 -- onder de hoede van De Koning. Kies een personeelnummer boven de 8000.
 -- Zorg voor de juiste invoer van deze gegevens.
 
-INSERT INTO medewerkers (mnr, naam, voorl, functie, chef, gbdatum, maandsal, comm) VALUES (8002, 'KONING', 'D', 'MANAGER', (SELECT mnr FROM medewerkers WHERE naam = 'DONK' AND voorl = 'A'), '01-01-2000', 3000, 500);
+-- voegt nieuwe afdeling 'FINANCIN' toe
+INSERT INTO afdelingen (anr, naam, locatie, hoofd)
+VALUES (
+           50,
+           'FINANCIEN',
+           'LEERDAM',
+           NULL
+       )
 ON CONFLICT DO NOTHING;
 
-INSERT INTO afdelingen (anr, naam, locatie, hoofd) VALUES (50, 'FINANCIEN', 'Leerdam', (SELECT mnr FROM medewerkers WHERE naam = 'KONING' AND voorl = 'D'));
+-- voegt nieuwe medewerker 'KONING' toe als hoofd van de nieuwe afd
+INSERT INTO medewerkers (mnr, naam, voorl, functie, chef, gbdatum, maandsal, comm, afd)
+VALUES (
+           8002,
+           'KONING',
+           'D',
+           'MANAGER',
+           7839,
+           '2000-01-01',
+           3000,
+           500,
+           50
+       )
 ON CONFLICT DO NOTHING;
 
+UPDATE afdelingen
+SET hoofd = 8002
+WHERE anr = 50;
 
 
 -- -------------------------[ HU TESTRAAMWERK ]--------------------------------
@@ -190,7 +241,7 @@ DELETE FROM uitvoeringen WHERE cursus = 'D&P';
 DELETE FROM cursussen WHERE code = 'D&P';
 DELETE FROM uitvoeringen WHERE locatie = 'LEERDAM';
 INSERT INTO medewerkers (mnr, naam, voorl, functie, chef, gbdatum, maandsal, comm, afd)
-VALUES (7654, 'MARTENS', 'P', 'VERKOPER', 7698, '28-09-1976', 1250, 1400, 30);
+VALUES (7654, 'MARTENS', 'P', 'VERKOPER', 7698, '1976-09-28', 1250, 1400, 30);
 UPDATE medewerkers SET maandsal = 1600 WHERE mnr = 7499;
 UPDATE medewerkers SET maandsal = 1250 WHERE mnr = 7521;
 UPDATE medewerkers SET maandsal = 2850 WHERE mnr = 7698;

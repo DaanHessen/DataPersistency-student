@@ -3,8 +3,8 @@
 -- Opdracht S8: Extra (uitdagende) queries
 --
 -- (c) 2020 Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
--- André Donk (andre.donk@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
+-- André Donk (andre.donk@hu.main.nl)
 --
 --
 -- Opdracht: schrijf SQL-queries om onderstaande resultaten op te vragen,

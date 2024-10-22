@@ -2,7 +2,7 @@
 -- Data & Persistency - Casus 'sales'
 --
 -- Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
 -- ------------------------------------------------------------------------
 
 CREATE TABLE customers (

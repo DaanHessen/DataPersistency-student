@@ -2,7 +2,7 @@
 -- Data & Persistency - Casus 'sales'
 --
 -- Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
 -- ------------------------------------------------------------------------
 
 INSERT INTO customers (customer_name,bill_to_customer_id,customer_category_id,buying_group_id,primary_contact_person_id,alternate_contact_person_id,delivery_method_id,delivery_city_id,postal_city_id,credit_limit,account_opened_date,standard_discount_percentage,is_statement_sent,is_on_credit_hold,payment_days,phone_number,fax_number,delivery_run,run_position,website_url,delivery_address_line_1,delivery_address_line_2,delivery_postal_code,postal_address_line_1,postal_address_line_2,postal_postal_code,last_edited_by) VALUES 

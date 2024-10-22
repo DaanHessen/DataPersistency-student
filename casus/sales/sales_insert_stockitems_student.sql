@@ -2,7 +2,7 @@
 -- Data & Persistency - Casus 'sales'
 --
 -- Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
 -- ------------------------------------------------------------------------
 
 INSERT INTO stock_items (stock_item_name,supplier_id,color_id,unit_package_id,outer_package_id,brand,"size",lead_time_days,quantity_per_outer,is_chiller_stock,barcode,tax_rate,unit_price,recommended_retail_price,typical_weight_per_unit,marketing_comments,internal_comments,photo,custom_fields,tags,search_details,last_edited_by) VALUES 

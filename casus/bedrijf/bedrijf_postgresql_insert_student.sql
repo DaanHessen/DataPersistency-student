@@ -5,8 +5,8 @@
 -- Lex de Haan (2004) Leerboek Oracle SQL (Derde editie, Academic Service)
 --
 -- Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
--- André Donk (andre.donk@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
+-- André Donk (andre.donk@hu.main.nl)
 -- ------------------------------------------------------------------------
 SET DATESTYLE = 'DMY'; -- voor het date format in de inserts
 

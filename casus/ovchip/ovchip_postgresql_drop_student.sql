@@ -2,7 +2,7 @@
 -- Data & Persistency - Casus 'ov-chipkaart'
 --
 -- (c) 2020 Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
 -- ------------------------------------------------------------------------
 
 -- Verwijder tabellen

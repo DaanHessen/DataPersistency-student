@@ -1,9 +1,9 @@
-package nl.hu.dp.ovchip;
+package main.nl.hu.dp.ovchip;
 
-import nl.hu.dp.ovchip.domein.Adres;
-import nl.hu.dp.ovchip.domein.OVChipkaart;
-import nl.hu.dp.ovchip.domein.Product;
-import nl.hu.dp.ovchip.domein.Reiziger;
+import main.nl.hu.dp.ovchip.domein.Adres;
+import main.nl.hu.dp.ovchip.domein.OVChipkaart;
+import main.nl.hu.dp.ovchip.domein.Product;
+import main.nl.hu.dp.ovchip.domein.Reiziger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * System.out.println() is alleen in deze klasse toegestaan (behalve voor exceptions).
  *
- * @author tijmen.muller@hu.nl
+ * @author tijmen.muller@hu.main.nl
  */
 public class Main {
     // Creëer een factory voor Hibernate sessions.

@@ -3,8 +3,8 @@
 -- Opdracht S7: Indexen
 --
 -- (c) 2020 Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
--- André Donk (andre.donk@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
+-- André Donk (andre.donk@hu.main.nl)
 -- ------------------------------------------------------------------------
 -- LET OP, zoals in de opdracht op Canvas ook gezegd kun je informatie over
 -- het query plan vinden op: https://www.postgresql.org/docs/current/using-explain.html
@@ -47,7 +47,7 @@
 --    het verschil tussen expected_delivery_date en order_date (als levertijd),  
 --    en de bestelde hoeveelheid van een product zien (quantity uit order_lines).
 -- Dit willen we alleen zien voor een bestelde hoeveelheid van een product > 250
---   (we zijn nl. als eerste geïnteresseerd in grote aantallen want daar lijkt het vaker mis te gaan)
+--   (we zijn main.nl. als eerste geïnteresseerd in grote aantallen want daar lijkt het vaker mis te gaan)
 -- En verder willen we ons focussen op verkopers wiens bestellingen er gemiddeld langer over doen.
 -- De meeste bestellingen kunnen binnen een dag bezorgd worden, sommige binnen 2-3 dagen.
 -- Het hele bestelproces is er op gericht dat de gemiddelde bestelling binnen 1.45 dagen kan worden bezorgd.

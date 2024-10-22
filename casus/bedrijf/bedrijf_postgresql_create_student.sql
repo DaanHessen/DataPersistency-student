@@ -5,7 +5,7 @@
 -- Lex de Haan (2004) Leerboek Oracle SQL (Derde editie, Academic Service)
 --
 -- Hogeschool Utrecht
--- Tijmen Muller (tijmen.muller@hu.nl)
+-- Tijmen Muller (tijmen.muller@hu.main.nl)
 -- ------------------------------------------------------------------------
 
 -- Creëer alle tabellen
