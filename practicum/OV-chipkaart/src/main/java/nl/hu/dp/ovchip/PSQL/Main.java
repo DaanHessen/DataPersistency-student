@@ -12,7 +12,7 @@ import nl.hu.dp.ovchip.PSQL.service.AdresDAOPsql;
 import nl.hu.dp.ovchip.PSQL.service.OVChipkaartDAOPsql;
 import nl.hu.dp.ovchip.PSQL.service.ProductDAOPsql;
 import nl.hu.dp.ovchip.PSQL.service.ReizigerDAOPsql;
-import nl.hu.dp.util.DatabaseConnection;
+import nl.hu.dp.ovchip.PSQL.util.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.Date;

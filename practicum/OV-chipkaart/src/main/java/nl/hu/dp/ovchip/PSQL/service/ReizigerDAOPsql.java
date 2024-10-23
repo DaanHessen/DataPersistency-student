@@ -4,6 +4,7 @@ import nl.hu.dp.ovchip.PSQL.data.AdresDAO;
 import nl.hu.dp.ovchip.PSQL.data.ReizigerDAO;
 import nl.hu.dp.ovchip.PSQL.domain.Adres;
 import nl.hu.dp.ovchip.PSQL.domain.Reiziger;
+import nl.hu.dp.ovchip.PSQL.util.id;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         PreparedStatement statement = null;
 
         try {
-            long newId = generateNewId("reiziger", "reiziger_id");
+            long newId = id.getNextId(connection, "reiziger", "reiziger_id");
             reiziger.setId(newId);
 
             String sql = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum) VALUES (?, ?, ?, ?, ?)";
@@ -184,18 +185,6 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         }
 
         return reizigers;
-    }
-
-    private long generateNewId(String table, String column) throws SQLException {
-        String sql = "SELECT MAX(" + column + ") FROM " + table;
-        try (Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sql)) {
-            if (rs.next()) {
-                return rs.getLong(1) + 1;
-            } else {
-                return 1;
-            }
-        }
     }
 
     private Reiziger resultSetToReiziger(ResultSet rs) throws SQLException {

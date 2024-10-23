@@ -5,6 +5,7 @@ import nl.hu.dp.ovchip.PSQL.data.ReizigerDAO;
 import nl.hu.dp.ovchip.PSQL.domain.OVChipkaart;
 import nl.hu.dp.ovchip.PSQL.domain.Product;
 import nl.hu.dp.ovchip.PSQL.domain.Reiziger;
+import nl.hu.dp.ovchip.PSQL.util.id;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
         PreparedStatement statement = null;
 
         try {
-            long newKaartNummer = generateNewId("ov_chipkaart", "kaart_nummer");
+            long newKaartNummer = id.getNextId(connection, "ov_chipkaart", "kaart_nummer");
             ovChipkaart.setKaart_nummer(newKaartNummer);
 
             String sql = "INSERT INTO ov_chipkaart (kaart_nummer, geldig_tot, klasse, saldo, reiziger_id) VALUES (?, ?, ?, ?, ?)";
@@ -211,18 +212,6 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
         }
 
         return ovChipkaarten;
-    }
-
-    private long generateNewId(String table, String column) throws SQLException {
-        String sql = "SELECT MAX(" + column + ") FROM " + table;
-        try (Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sql)) {
-            if (rs.next()) {
-                return rs.getLong(1) + 1;
-            } else {
-                return 1;
-            }
-        }
     }
 
     private OVChipkaart resultSetToOVChipkaart(ResultSet rs) throws SQLException {

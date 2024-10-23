@@ -3,6 +3,7 @@ package nl.hu.dp.ovchip.PSQL.service;
 import nl.hu.dp.ovchip.PSQL.data.AdresDAO;
 import nl.hu.dp.ovchip.PSQL.domain.Adres;
 import nl.hu.dp.ovchip.PSQL.domain.Reiziger;
+import nl.hu.dp.ovchip.PSQL.util.id;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class AdresDAOPsql implements AdresDAO {
         PreparedStatement statement = null;
 
         try {
-            long newId = generateNewId("adres", "adres_id");
+            long newId = id.getNextId(connection, "adres", "adres_id");
             adres.setId(newId);
 
             String sql = "INSERT INTO adres (adres_id, postcode, huisnummer, straat, woonplaats, reiziger_id) VALUES (?, ?, ?, ?, ?, ?)";
@@ -156,17 +157,6 @@ public class AdresDAOPsql implements AdresDAO {
         }
 
         return adressen;
-    }
-
-    private long generateNewId(String table, String column) throws SQLException {
-        String sql = "SELECT MAX(" + column + ") FROM " + table;
-        try (Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sql)) {
-            if (rs.next()) {
-                return rs.getLong(1) + 1;
-            }
-        }
-        return 1;
     }
 
     private Adres resultSetToAdres(ResultSet rs) throws SQLException {

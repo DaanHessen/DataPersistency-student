@@ -11,8 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import nl.hu.dp.ovchip.HIBERNATE.domain.*;
-
 import java.util.List;
 
 @RequiredArgsConstructor

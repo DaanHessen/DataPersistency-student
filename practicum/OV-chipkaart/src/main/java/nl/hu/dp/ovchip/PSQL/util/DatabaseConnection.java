@@ -1,4 +1,4 @@
-package nl.hu.dp.util;
+package nl.hu.dp.ovchip.PSQL.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

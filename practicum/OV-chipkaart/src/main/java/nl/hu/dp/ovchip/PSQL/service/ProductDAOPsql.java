@@ -5,6 +5,7 @@ import nl.hu.dp.ovchip.PSQL.data.ProductDAO;
 import nl.hu.dp.ovchip.PSQL.domain.OVChipkaart;
 import nl.hu.dp.ovchip.PSQL.domain.Product;
 import nl.hu.dp.ovchip.PSQL.domain.Reiziger;
+import nl.hu.dp.ovchip.PSQL.util.id;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class ProductDAOPsql implements ProductDAO {
         PreparedStatement statement = null;
 
         try {
-            long newProductNummer = generateNewId("product", "product_nummer");
+            long newProductNummer = id.getNextId(connection, "product", "product_nummer");
             product.setProductNummer(newProductNummer);
 
             String sql = "INSERT INTO product (product_nummer, naam, beschrijving, prijs) VALUES (?, ?, ?, ?)";
@@ -173,18 +174,6 @@ public class ProductDAOPsql implements ProductDAO {
         }
 
         return producten;
-    }
-
-    private long generateNewId(String table, String column) throws SQLException {
-        String sql = "SELECT MAX(" + column + ") FROM " + table;
-        try (Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sql)) {
-            if (rs.next()) {
-                return rs.getLong(1) + 1;
-            } else {
-                return 1;
-            }
-        }
     }
 
     private Product resultSetToProduct(ResultSet rs) throws SQLException {
