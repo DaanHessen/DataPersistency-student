@@ -1,6 +1,6 @@
 package nl.hu.dp.ovchip.HIBERNATE.data;
 
-import nl.hu.dp.ovchip.PSQL.domain.Reiziger;
+import nl.hu.dp.ovchip.HIBERNATE.domain.Reiziger;
 
 import java.sql.Date;
 import java.sql.SQLException;

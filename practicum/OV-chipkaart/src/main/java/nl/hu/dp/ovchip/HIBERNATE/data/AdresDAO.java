@@ -1,7 +1,7 @@
 package nl.hu.dp.ovchip.HIBERNATE.data;
 
-import nl.hu.dp.ovchip.PSQL.domain.Adres;
-import nl.hu.dp.ovchip.PSQL.domain.Reiziger;
+import nl.hu.dp.ovchip.HIBERNATE.domain.Adres;
+import nl.hu.dp.ovchip.HIBERNATE.domain.Reiziger;
 
 import java.sql.SQLException;
 import java.util.List;

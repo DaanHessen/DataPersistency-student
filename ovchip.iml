@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/practicum/OV-chipkaart/main" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/practicum/OV-chipkaart/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/practicum/OV-chipkaart/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/practicum/OV-chipkaart/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/practicum/OV-chipkaart/src/test" />
       <excludeFolder url="file://$MODULE_DIR$/practicum/OV-chipkaart/src/test/java" />
     </content>
@@ -14,10 +15,10 @@
       <configuration>
         <datasource-map>
           <unit-entry name="hibernate.cfg.xml" />
-          <unit-entry name="practicum:OV-chipkaart:src:hibernate.cfg.xml" value="ac630cbb-a1c5-4ced-87b1-ceb46c37f6b4" />
+          <unit-entry name="practicum:OV-chipkaart:src:hibernate.cfg.xml" value="4e32214c-c5c7-4b47-b729-627071f79f42" />
         </datasource-map>
         <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/practicum/OV-chipkaart/src/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/practicum/OV-chipkaart/src/main/resources/hibernate.cfg.xml" />
       </configuration>
     </facet>
   </component>

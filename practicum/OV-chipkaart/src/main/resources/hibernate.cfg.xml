@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">Kq)44Ne@</property>
+
+        <!-- JDBC connection pool settings -->
+        <property name="hibernate.connection.pool_size">10</property>
+
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- Mappings -->
+        <mapping class="nl.hu.dp.ovchip.HIBERNATE.domain.Reiziger"/>
+        <mapping class="nl.hu.dp.ovchip.HIBERNATE.domain.Adres"/>
+        <mapping class="nl.hu.dp.ovchip.HIBERNATE.domain.OVChipkaart"/>
+        <mapping class="nl.hu.dp.ovchip.HIBERNATE.domain.Product"/>
+    </session-factory>
+</hibernate-configuration>

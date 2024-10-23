@@ -1,10 +1,12 @@
 package nl.hu.dp.ovchip.HIBERNATE.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,20 +17,19 @@ import java.util.List;
 public class OVChipkaart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "kaart_nummer")
-    private long kaart_nummer;
+    @Column(name = "kaart_nummer")
+    private Long kaart_nummer;
 
-    @Column (name = "geldig_tot")
+    @Column(name = "geldig_tot")
     private Date geldigTot;
 
-    @Column (name = "klasse")
+    @Column(name = "klasse")
     private int klasse;
 
-    @Column (name = "saldo")
+    @Column(name = "saldo")
     private double saldo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "reiziger_id")
     private Reiziger reiziger;
 
@@ -41,14 +42,14 @@ public class OVChipkaart {
     public void addProduct(Product product) {
         if (!producten.contains(product)) {
             producten.add(product);
-            product.addOVChipkaart(this);
+            product.getOvChipkaarten().add(this);
         }
     }
 
     public void removeProduct(Product product) {
         if (producten.contains(product)) {
             producten.remove(product);
-            product.removeOVChipkaart(this);
+            product.getOvChipkaarten().remove(this);
         }
     }
 
@@ -57,4 +58,3 @@ public class OVChipkaart {
         return "OVChipkaart {#" + kaart_nummer + ", geldig tot: " + geldigTot + ", klasse: " + klasse + ", saldo: €" + saldo + "}";
     }
 }
-

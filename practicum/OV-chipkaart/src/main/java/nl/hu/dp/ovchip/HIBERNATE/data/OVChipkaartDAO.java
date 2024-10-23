@@ -1,8 +1,8 @@
 package nl.hu.dp.ovchip.HIBERNATE.data;
 
-import nl.hu.dp.ovchip.PSQL.domain.OVChipkaart;
-import nl.hu.dp.ovchip.PSQL.domain.Product;
-import nl.hu.dp.ovchip.PSQL.domain.Reiziger;
+import nl.hu.dp.ovchip.HIBERNATE.domain.OVChipkaart;
+import nl.hu.dp.ovchip.HIBERNATE.domain.Product;
+import nl.hu.dp.ovchip.HIBERNATE.domain.Reiziger;
 
 import java.sql.SQLException;
 import java.util.List;

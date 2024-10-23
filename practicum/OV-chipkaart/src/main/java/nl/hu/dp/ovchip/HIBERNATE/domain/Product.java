@@ -16,33 +16,32 @@ import java.util.List;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "product_nummer")
+    @Column(name = "product_nummer")
     private Long productNummer;
 
-    @Column (name = "naam")
+    @Column(name = "naam")
     private String naam;
 
-    @Column (name = "beschrijving")
+    @Column(name = "beschrijving")
     private String beschrijving;
 
-    @Column (name = "prijs")
+    @Column(name = "prijs")
     private double prijs;
 
     @ManyToMany(mappedBy = "producten")
-    private List<OVChipkaart> OVChipkaarten = new ArrayList<>();
+    private List<OVChipkaart> ovChipkaarten = new ArrayList<>();
 
     public void addOVChipkaart(OVChipkaart ovChipkaart) {
-        if (!OVChipkaarten.contains(ovChipkaart)) {
-            OVChipkaarten.add(ovChipkaart);
-            ovChipkaart.addProduct(this);
+        if (!ovChipkaarten.contains(ovChipkaart)) {
+            ovChipkaarten.add(ovChipkaart);
+            ovChipkaart.getProducten().add(this);
         }
     }
 
     public void removeOVChipkaart(OVChipkaart ovChipkaart) {
-        if (OVChipkaarten.contains(ovChipkaart)) {
-            OVChipkaarten.remove(ovChipkaart);
-            ovChipkaart.removeProduct(this);
+        if (ovChipkaarten.contains(ovChipkaart)) {
+            ovChipkaarten.remove(ovChipkaart);
+            ovChipkaart.getProducten().remove(this);
         }
     }
 
