@@ -27,7 +27,7 @@ public class ProductDAOHibernate implements ProductDAO {
             transaction = session.beginTransaction();
 
             if (product.getProductNummer() == null) {
-                Long nextId = id.getNextId(session, "Product", "productNummer"); // Correct field name is "productNummer"
+                Long nextId = id.getNextId(session, "Product", "productNummer");
                 product.setProductNummer(nextId);
             }
 

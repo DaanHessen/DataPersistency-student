@@ -28,7 +28,7 @@ public class OVChipkaartDAOHibernate implements OVChipkaartDAO {
             transaction = session.beginTransaction();
 
             if (ovChipkaart.getKaart_nummer() == null) {
-                Long nextId = id.getNextId(session, "OVChipkaart", "kaart_nummer"); // Correct field name is "kaart_nummer"
+                Long nextId = id.getNextId(session, "OVChipkaart", "kaart_nummer");
                 ovChipkaart.setKaart_nummer(nextId);
             }
 

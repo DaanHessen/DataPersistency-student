@@ -36,28 +36,28 @@ public class Main {
                 testReizigerDAO(reizigerDAO);
                 testReizigerDAOTest = true;
             } catch (SQLException e) {
-                logger.error("testReizigerDAOTest: Fout tijdens het testen van ReizigerDAO.", e);
+                logger.error("ReizigerDAOTest: Fout tijdens het testen van ReizigerDAO.", e);
             }
 
             try {
                 testAdresDAO(adresDAO, reizigerDAO);
                 testAdresDAOTest = true;
             } catch (SQLException e) {
-                logger.error("testAdresDAOTest: Fout tijdens het testen van AdresDAO.", e);
+                logger.error("AdresDAOTest: Fout tijdens het testen van AdresDAO.", e);
             }
 
             try {
                 testOVChipkaartDAO(ovChipkaartDAO, reizigerDAO, productDAO);
                 testOVChipkaartDAOTest = true;
             } catch (SQLException e) {
-                logger.error("testOVChipkaartDAOTest: Fout tijdens het testen van OVChipkaartDAO.", e);
+                logger.error("OVChipkaartDAOTest: Fout tijdens het testen van OVChipkaartDAO.", e);
             }
 
             try {
                 testProductDAO(productDAO, ovChipkaartDAO, reizigerDAO);
                 testProductDAOTest = true;
             } catch (SQLException e) {
-                logger.error("testProductDAOTest: Fout tijdens het testen van ProductDAO.", e);
+                logger.error("ProductDAOTest: Fout tijdens het testen van ProductDAO.", e);
             }
 
         } catch (Exception e) {
@@ -71,10 +71,10 @@ public class Main {
 
     private static void printTestResults(boolean... tests) {
         String[] testNames = {
-                "testReizigerDAOTest",
-                "testAdresDAOTest",
-                "testOVChipkaartDAOTest",
-                "testProductDAOTest"
+                "testReizigerDAO",
+                "testAdresDAO",
+                "testOVChipkaartDAO",
+                "testProductDAO"
         };
 
         int successfulTests = 0;
@@ -87,7 +87,7 @@ public class Main {
             }
         }
 
-        System.out.println(successfulTests + " tests out of " + tests.length + " ran successfully");
+        System.out.println(successfulTests + " tests out of " + tests.length + " succeeded.");
     }
 
     /**
