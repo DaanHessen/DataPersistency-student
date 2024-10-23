@@ -12,10 +12,18 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
+/***
+ * Let op, veel logging is rood, wat lijkt op veel errors, maar dit is dus logging.
+ ***/
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
+        boolean testReizigerDAOTest = false;
+        boolean testAdresDAOTest = false;
+        boolean testOVChipkaartDAOTest = false;
+        boolean testProductDAOTest = false;
+
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
         ReizigerDAO reizigerDAO = new ReizigerDAOHibernate(sessionFactory);
@@ -24,16 +32,62 @@ public class Main {
         ProductDAO productDAO = new ProductDAOHibernate(sessionFactory);
 
         try {
-            testReizigerDAO(reizigerDAO);
-            testAdresDAO(adresDAO, reizigerDAO);
-            testOVChipkaartDAO(ovChipkaartDAO, reizigerDAO, productDAO);
-            testProductDAO(productDAO, ovChipkaartDAO, reizigerDAO);
+            try {
+                testReizigerDAO(reizigerDAO);
+                testReizigerDAOTest = true;
+            } catch (SQLException e) {
+                logger.error("testReizigerDAOTest: Fout tijdens het testen van ReizigerDAO.", e);
+            }
 
-        } catch (SQLException e) {
+            try {
+                testAdresDAO(adresDAO, reizigerDAO);
+                testAdresDAOTest = true;
+            } catch (SQLException e) {
+                logger.error("testAdresDAOTest: Fout tijdens het testen van AdresDAO.", e);
+            }
+
+            try {
+                testOVChipkaartDAO(ovChipkaartDAO, reizigerDAO, productDAO);
+                testOVChipkaartDAOTest = true;
+            } catch (SQLException e) {
+                logger.error("testOVChipkaartDAOTest: Fout tijdens het testen van OVChipkaartDAO.", e);
+            }
+
+            try {
+                testProductDAO(productDAO, ovChipkaartDAO, reizigerDAO);
+                testProductDAOTest = true;
+            } catch (SQLException e) {
+                logger.error("testProductDAOTest: Fout tijdens het testen van ProductDAO.", e);
+            }
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             sessionFactory.close();
         }
+
+        printTestResults(testReizigerDAOTest, testAdresDAOTest, testOVChipkaartDAOTest, testProductDAOTest);
+    }
+
+    private static void printTestResults(boolean... tests) {
+        String[] testNames = {
+                "testReizigerDAOTest",
+                "testAdresDAOTest",
+                "testOVChipkaartDAOTest",
+                "testProductDAOTest"
+        };
+
+        int successfulTests = 0;
+        for (int i = 0; i < tests.length; i++) {
+            if (tests[i]) {
+                System.out.println(testNames[i] + " -- succeeded");
+                successfulTests++;
+            } else {
+                System.out.println(testNames[i] + " -- failed");
+            }
+        }
+
+        System.out.println(successfulTests + " tests out of " + tests.length + " ran successfully");
     }
 
     /**

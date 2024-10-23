@@ -23,12 +23,19 @@ import java.util.List;
  * De code werkt nu een stuk beter dan hiervoor. Ook heb ik de code netter gemaakt eb gewerkt aan consistentie.
  * Ook heb ik sommige (herbruikbare) code in aparte helper methodes gezet.
  *
- * De main klasse test de werking van de DAOPsql klassen.
+ * De main klasse test de werking van de DAOPsql klassen.wi
  ***/
 
 public class Main {
 
     public static void main(String[] args) {
+        boolean saveReizigerTest = false;
+        boolean saveAdresTest = false;
+        boolean saveOVChipkaartTest = false;
+        boolean saveProductTest = false;
+        boolean retrieveEntitiesTest = false;
+        boolean deleteEntitiesTest = false;
+
         try (Connection connection = DatabaseConnection.getConnection()) {
             connection.setAutoCommit(false);
 
@@ -51,6 +58,7 @@ public class Main {
                     reiziger.setGeboortedatum(Date.valueOf("2001-01-01"));
                     reizigerDAO.save(reiziger);
                     System.out.println("Reiziger saved: " + reiziger);
+                    saveReizigerTest = true;
                 } catch (Exception e) {
                     connection.rollback();
                     System.out.println("saveReizigerTest: Fout tijdens het opslaan van Reiziger, rollback uitgevoerd.");
@@ -67,6 +75,7 @@ public class Main {
                         adres.setReiziger(reiziger);
                         adresDAO.save(adres);
                         System.out.println("Adres saved: " + adres);
+                        saveAdresTest = true;
                     } catch (Exception e) {
                         connection.rollback();
                         System.out.println("saveAdresTest: Fout tijdens het opslaan van Adres, rollback uitgevoerd.");
@@ -83,6 +92,7 @@ public class Main {
                         ovChipkaart.setReiziger(reiziger);
                         ovChipkaartDAO.save(ovChipkaart);
                         System.out.println("OVChipkaart saved: " + ovChipkaart);
+                        saveOVChipkaartTest = true;
                     } catch (Exception e) {
                         connection.rollback();
                         System.out.println("saveOVChipkaartTest: Fout tijdens het opslaan van OVChipkaart, rollback uitgevoerd.");
@@ -102,6 +112,7 @@ public class Main {
                         ovChipkaart.addProduct(product);
                         ovChipkaartDAO.update(ovChipkaart);
                         System.out.println("OVChipkaart updated with product: " + ovChipkaart);
+                        saveProductTest = true;
                     } catch (Exception e) {
                         connection.rollback();
                         System.out.println("saveProductTest: Fout tijdens het opslaan van Product of het bijwerken van OVChipkaart, rollback uitgevoerd.");
@@ -122,6 +133,7 @@ public class Main {
 
                         Product retrievedProduct = productDAO.findById(product.getProductNummer());
                         System.out.println("Retrieved Product: " + retrievedProduct);
+                        retrieveEntitiesTest = true;
                     } catch (Exception e) {
                         connection.rollback();
                         System.out.println("retrieveEntitiesTest: Fout tijdens het ophalen van gegevens, rollback uitgevoerd.");
@@ -140,6 +152,7 @@ public class Main {
 
                         reizigerDAO.delete(reiziger);
                         System.out.println("Reiziger deleted: " + reiziger);
+                        deleteEntitiesTest = true;
                     } catch (Exception e) {
                         connection.rollback();
                         System.out.println("deleteEntitiesTest: Fout tijdens het verwijderen van gegevens, rollback uitgevoerd.");
@@ -157,5 +170,30 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        printTestResults(saveReizigerTest, saveAdresTest, saveOVChipkaartTest, saveProductTest, retrieveEntitiesTest, deleteEntitiesTest);
+    }
+
+    public static void printTestResults(boolean... tests) {
+        String[] testNames = {
+                "saveReizigerTest",
+                "saveAdresTest",
+                "saveOVChipkaartTest",
+                "saveProductTest",
+                "retrieveEntitiesTest",
+                "deleteEntitiesTest"
+        };
+
+        int succesful = 0;
+        for (int i = 0; i < tests.length; i++) {
+            if (tests[i]) {
+                    System.out.println(testNames[i] + " succeeded.");
+                    succesful++;
+            } else {
+                System.out.println(testNames[i] + " failed.");
+            }
+        }
+
+        System.out.println(succesful + " tests out of " + tests.length + " succeeded.");
     }
 }
