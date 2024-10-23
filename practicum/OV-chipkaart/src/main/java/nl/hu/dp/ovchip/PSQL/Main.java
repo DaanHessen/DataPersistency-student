@@ -22,6 +22,8 @@ import java.util.List;
 /***
  * De code werkt nu een stuk beter dan hiervoor. Ook heb ik de code netter gemaakt eb gewerkt aan consistentie.
  * Ook heb ik sommige (herbruikbare) code in aparte helper methodes gezet.
+ *
+ * De main klasse test de werking van de DAOPsql klassen.
  ***/
 
 public class Main {

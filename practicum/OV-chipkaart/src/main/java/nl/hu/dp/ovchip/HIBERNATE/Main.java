@@ -37,9 +37,9 @@ public class Main {
     }
 
     /**
-     * Tests the ReizigerDAOHibernate class.
-     * It creates a new reiziger, retrieves it, updates it's last name, retrieves all reizigers, and finally deletes
-     * te new reiziger.
+     * Tests voor ReizigerDAOHibernate klasse.
+     * Maakt een nieuwe reiziger aan, slaat deze op, haalt de reiziger op, update de reiziger (achternaam wordt van Dijk),
+     * haalt alle reizigers op, en verwijdert de reiziger.
      */
     private static void testReizigerDAO(ReizigerDAO reizigerDAO) throws SQLException {
         logger.info("---- Testing ReizigerDAO ----");
@@ -64,10 +64,9 @@ public class Main {
     }
 
     /**
-     * Tests the AdresDAOHibernate class.
-     * It creates a new reiziger and adres, associates the adres with the reiziger, saves the reiziger, retrieves the
-     * adres, updates the adres (set woonplaats to Utrecht), retrieves all adressen, and finally deletes the
-     * adres and reiziger.
+     * Tests voor AdresDAOHibernate klasse.
+     * Maakt een nieuwe reiziger en adres aan, koppelt ze aan elkaar, slaat de reiziger op, haalt het adres op, update
+     * het adres (woonplaats wordt Utrecht), haalt alle adressen op, en verwijdert het adres en reiziger.
      */
     private static void testAdresDAO(AdresDAO adresDAO, ReizigerDAO reizigerDAO) throws SQLException {
         logger.info("---- Testing AdresDAO ----");
@@ -101,10 +100,9 @@ public class Main {
     }
 
     /**
-     * Tests the OVChipkaartDAOHibernate class.
-     * It creates a new reiziger, ov chipkaart and product, associates the ov chipkaart with the reiziger and product,
-     * saves the ov chipkaart, retrieves the v chipkaart, updates the ov chipkaart (sets saldo to 75.0), retrieves all
-     * ov chipkaarten, and finally deletes the ov chipkaart, product, and reizier.
+     * Tests voor OVChipkaartDAOHibernate klasse.
+     * Maakt een nieuw reiziger, OVChipkaart, en product aan, koppelt het product aan de OVChipkaart, updatet de OVChipkaart
+     * (saldo wordt 75.0), haalt alle OVChipkaarten op, en verwijdert de OVChipkaart, product, en teiziger.
      */
     private static void testOVChipkaartDAO(OVChipkaartDAO ovChipkaartDAO, ReizigerDAO reizigerDAO, ProductDAO productDAO) throws SQLException {
         logger.info("---- Testing OVChipkaartDAO ----");
@@ -145,10 +143,9 @@ public class Main {
     }
 
     /**
-     * Tests the ProductDAOHibernate class.
-     * It creates a new reiziger, ov chipkaart, and product, associates the product with the ov chipkaart, saves the
-     * product, retrieves the product, updates the product (sets prijs to 35.0), retrieves all products, and finally
-     * deletes the product, ov chipkaart, and reiziger.
+     * Tests voor ProductDAOHibernate klasse.
+     * Maakt een reiziger, OVChipkaart en product aan, koppelt de OVChipkaart aan het product, slaat het product op,
+     * haalt het product op, update het product (prijs wordt 35.0), haalt alle producten op, en verwijdert het produc.
      */
     private static void testProductDAO(ProductDAO productDAO, OVChipkaartDAO ovChipkaartDAO, ReizigerDAO reizigerDAO) throws SQLException {
         logger.info("---- Testing ProductDAO ----");
